@@ -1,11 +1,20 @@
 // const coffeeStock = require('./state');
 
 // destructing object
-const {coffeeStock, isCoffeeMachineReady} = require('./state');
+// const {coffeeStock, isCoffeeMachineReady} = require('./state');
+
+// import coffeeStock from './state.js';
+
+import {coffeeStock, isCoffeeMachineReady} from './state.js';
 
 console.log(coffeeStock);
 console.log(isCoffeeMachineReady);
 
+const displayStock = stock => {
+    for (const type in stock) {
+        console.log(type);
+    }
+}
 const makeCoffee = (type, miligrams) => {
     if(coffeeStock[type] >= miligrams) {
         console.log("Kopi berhasil dibuat");
@@ -14,6 +23,7 @@ const makeCoffee = (type, miligrams) => {
     }
 }
 
+displayStock(coffeeStock);
 makeCoffee("robusta", 80);
 
 // console.log("Menjalankan mesin kopi");
