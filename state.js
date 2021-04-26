@@ -4,5 +4,10 @@ const coffeeStock = {
     liberica: 200,
 }
 
-module.exports = coffeeStock;
-console.log(module);
+const isCoffeeMachineReady = true;
+
+// module.exports = coffeeStock;
+// module.exports = isCoffeeMachineReady;
+
+// object literals
+module.exports = {coffeeStock, isCoffeeMachineReady};
