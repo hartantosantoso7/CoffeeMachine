@@ -23,20 +23,21 @@ const makeCoffee = (type, miligrams) => {
     }
 }
 
-const orderCoffee = () => {
+const orderCoffee = callback => {
     let coffee = null;
     console.log("sedang membuat kopi, silahkan tunggu ...");
     setTimeout(() => {
         coffee = "Kopi sudah jadi";
+        callback(coffee);
     }, 3000);
-    return coffee;
 }
 
 displayStock(coffeeStock);
 makeCoffee("robusta", 80);
 
-const coffee = orderCoffee();
-console.log(coffee);
+orderCoffee(coffee => {
+    console.log(coffee);
+});
 
 // console.log("Menjalankan mesin kopi");
 // console.log("Menggiling biji kopi");
