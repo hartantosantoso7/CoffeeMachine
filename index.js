@@ -15,14 +15,16 @@ const displayStock = stock => {
         console.log(type);
     }
 }
-const makeCoffee = (type, miligrams) => {
-    if(coffeeStock[type] >= miligrams) {
-        console.log("Kopi berhasil dibuat");
-    } else {
-        console.log("Biji kopi habis!");
-    }
-}
 
+// const makeCoffee = (type, miligrams) => {
+//     if(coffeeStock[type] >= miligrams) {
+//         console.log("Kopi berhasil dibuat");
+//     } else {
+//         console.log("Biji kopi habis!");
+//     }
+// }
+
+// callback Function
 const orderCoffee = callback => {
     let coffee = null;
     console.log("sedang membuat kopi, silahkan tunggu ...");
@@ -32,12 +34,29 @@ const orderCoffee = callback => {
     }, 3000);
 }
 
+// constructing promise object
+const executorFunction = (resolve, reject) => {
+    const isCoffeeMakerReady = true;
+    if(isCoffeeMachineReady) {
+        resolve("kopi berhasil dibuat");
+    } else {
+        reject("Mesin kopi tidak bisa digunakan");
+    }
+}
+
+
 displayStock(coffeeStock);
-makeCoffee("robusta", 80);
+// makeCoffee("robusta", 80);
 
 orderCoffee(coffee => {
     console.log(coffee);
 });
+
+const makeCoffee = () => {
+    return new Promise(executorFunction);
+}
+const coffeePromise = makeCoffee();
+console.log(coffeePromise);
 
 // console.log("Menjalankan mesin kopi");
 // console.log("Menggiling biji kopi");
