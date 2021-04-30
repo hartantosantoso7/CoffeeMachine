@@ -23,8 +23,20 @@ const makeCoffee = (type, miligrams) => {
     }
 }
 
+const orderCoffee = () => {
+    let coffee = null;
+    console.log("sedang membuat kopi, silahkan tunggu ...");
+    setTimeout(() => {
+        coffee = "Kopi sudah jadi";
+    }, 3000);
+    return coffee;
+}
+
 displayStock(coffeeStock);
 makeCoffee("robusta", 80);
+
+const coffee = orderCoffee();
+console.log(coffee);
 
 // console.log("Menjalankan mesin kopi");
 // console.log("Menggiling biji kopi");
@@ -33,4 +45,10 @@ makeCoffee("robusta", 80);
 // console.log("Menuangkan kopi ke dalam gelas");
 // console.log("Menuangkan susu ke dalam gelas");
 // console.log("Kopi Anda sudah siap!");
+
+// console.log("selamat datang");
+// setTimeout(() => {
+//     console.log("Terima Kasih sudah mampir, silahkan datang kembali");
+// }, 3000 );
+//     console.log("ada yang bisa dibantu")
 
