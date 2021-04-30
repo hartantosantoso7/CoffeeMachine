@@ -44,6 +44,31 @@ const executorFunction = (resolve, reject) => {
     }
 }
 
+const stock = {
+    coffeeBeans: 250,
+    water: 1000,
+}
+// consuming promise
+const checkStock = () => {
+    return new Promise((resolve, reject) => {
+        if(stock.coffeeBeans >= 16 && stock.water >= 250) {
+            resolve("Stok cukup, Bisa membuat kopi");
+        } else {
+            reject("stock tidak cukup");
+        }
+    })
+}
+
+const handleSuccess = resolvedValue => {
+    console.log(resolvedValue);
+}
+
+const handleFailure = rejectionReason => {
+    console.log(rejectionReason);
+}
+
+// menangani hasil yang akan dikembalikan
+checkStock().then(handleSuccess, handleFailure);
 
 displayStock(coffeeStock);
 // makeCoffee("robusta", 80);
