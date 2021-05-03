@@ -97,11 +97,11 @@ orderCoffee(coffee => {
     console.log(coffee);
 });
 
-const makeCoffee = () => {
-    return new Promise(executorFunction);
-}
-const coffeePromise = makeCoffee();
-console.log(coffeePromise);
+// const makeCoffee = () => {
+//     return new Promise(executorFunction);
+// }
+// const coffeePromise = makeCoffee();
+// console.log(coffeePromise);
 
 const boilWater = () => {
     return new Promise((resolve, reject) => {
@@ -121,32 +121,67 @@ const grindCoffeeBeans = () => {
     })
 }
 
-function makeEspresso() {
-    checkAvailability()
-        .then((value) => {
-            console.log(value);
-            return checkStock();
-        })
-        .then((value) => {
-            console.log(value);
-            const promises = [boilWater(), grindCoffeeBeans()];
-            return Promise.all(promises);
-        })
-        .then((value) => {
-            console.log(value);
-            return brewCoffee();
-        })
-        .then((value) => {
-            console.log(value);
-            state.isCoffeeMachineBusy = false;
-        })
-        .then((rejectedReason) => {
-            console.log(rejectedReason);
-            state.isCoffeeMachineBusy = false;
-        })
+async function makeCoffee() {
+    try {
+        const coffee = await getCoffee();
+        console.log(coffee);
+    } catch (rejectedReason) {
+        console.log(rejectedReason);
+    }
 }
 
+const getCoffee = () => {
+    return new Promise((resolve, reject) => {
+        const seeds = 100;
+        setTimeout(() => {
+            if (seeds >= 10) {
+                resolve("kopi didapatkan");
+            } else {
+                reject("biji kopi habis");
+            }
+    }, 1000);
+  })
+}
+
+// promise all
+// function makeEspresso() {
+//     checkAvailability()
+//         .then((value) => {
+//             console.log(value);
+//             return checkStock();
+//         })
+//         .then((value) => {
+//             console.log(value);
+//             const promises = [boilWater(), grindCoffeeBeans()];
+//             return Promise.all(promises);
+//         })
+//         .then((value) => {
+//             console.log(value);
+//             return brewCoffee();
+//         })
+//         .then((value) => {
+//             console.log(value);
+//             state.isCoffeeMachineBusy = false;
+//         })
+//         .then((rejectedReason) => {
+//             console.log(rejectedReason);
+//             state.isCoffeeMachineBusy = false;
+//         })
+// }
+
+async function makeEspresso() {
+    try {
+        await checkAvailability();
+        await checkStock();
+        const coffee = await brewCoffee();
+        console.log(coffee);
+    } catch (rejectedReason) {
+        console.log(rejectedReason);
+    }
+    
+}
 makeEspresso();
+makeCoffee();
 // console.log("Menjalankan mesin kopi");
 // console.log("Menggiling biji kopi");
 // console.log("Memanaskan air");

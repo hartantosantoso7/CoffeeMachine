@@ -9,5 +9,6 @@
     "start": "node index.js"
   },
   "author": "hartanto santoso",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }
