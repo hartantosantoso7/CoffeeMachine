@@ -10,6 +10,14 @@ import {coffeeStock, isCoffeeMachineReady} from './state.js';
 console.log(coffeeStock);
 console.log(isCoffeeMachineReady);
 
+const state = {
+    stock: {
+        coffeeBeans: 250,
+        water: 1000,
+    },
+    isCoffeeMachineBusy: false,
+}
+
 const displayStock = stock => {
     for (const type in stock) {
         console.log(type);
@@ -32,6 +40,18 @@ const orderCoffee = callback => {
         coffee = "Kopi sudah jadi";
         callback(coffee);
     }, 3000);
+}
+
+const checkAvailability = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (!state.isCoffeeMachineBusy) {
+                resolve("Mesin kopi siap digunakan");
+            } else {
+                reject("Mesin sedang sibuk");
+            }
+        }, 2000)
+    })
 }
 
 // constructing promise object
@@ -83,6 +103,50 @@ const makeCoffee = () => {
 const coffeePromise = makeCoffee();
 console.log(coffeePromise);
 
+const boilWater = () => {
+    return new Promise((resolve, reject) => {
+        console.log("Memanaskan Air");
+        setTimeout(() => {
+            resolve("Air panas sudah siap");
+        }, 2000);
+    })
+}
+
+const grindCoffeeBeans = () => {
+    return new Promise((resolve, reject) => {
+        console.log("Menggiling biji kopi");
+        setTimeout(() => {
+            reject("kopi sudah siap");
+        }, 1000);
+    })
+}
+
+function makeEspresso() {
+    checkAvailability()
+        .then((value) => {
+            console.log(value);
+            return checkStock();
+        })
+        .then((value) => {
+            console.log(value);
+            const promises = [boilWater(), grindCoffeeBeans()];
+            return Promise.all(promises);
+        })
+        .then((value) => {
+            console.log(value);
+            return brewCoffee();
+        })
+        .then((value) => {
+            console.log(value);
+            state.isCoffeeMachineBusy = false;
+        })
+        .then((rejectedReason) => {
+            console.log(rejectedReason);
+            state.isCoffeeMachineBusy = false;
+        })
+}
+
+makeEspresso();
 // console.log("Menjalankan mesin kopi");
 // console.log("Menggiling biji kopi");
 // console.log("Memanaskan air");
